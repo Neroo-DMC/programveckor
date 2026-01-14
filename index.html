@@ -38,7 +38,7 @@
             const today = new Date();
             const due = new Date(dueDate);
     
-            // Nollställ tid så jämförelsen blir rätt
+            // Nollställ tid så det blir rätt
             today.setHours(0, 0, 0, 0);
             due.setHours(0, 0, 0, 0);
     
@@ -87,12 +87,12 @@
             taskList.appendChild(li);
         }
     
-        // Visa uppgifter som sparats innan
+        // Visa sparade uppgifter vid start
         tasks.forEach(task => {
             addTaskToList(task);
         });
     
-        // formuläret skickas
+        // När formuläret skickas
         form.addEventListener("submit", function(e) {
             e.preventDefault();
     
