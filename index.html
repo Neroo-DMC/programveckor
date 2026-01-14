@@ -87,12 +87,12 @@
             taskList.appendChild(li);
         }
     
-        // Visa sparade uppgifter vid start
+        // Visa uppgifter som sparats innan
         tasks.forEach(task => {
             addTaskToList(task);
         });
     
-        // När formuläret skickas
+        // formuläret skickas
         form.addEventListener("submit", function(e) {
             e.preventDefault();
     
