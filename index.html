@@ -18,99 +18,112 @@
         <input type="date" id="dueDate" required>
         <br>
 
-        
-
         <button type="submit">Lägg till</button>
     </form>
 
-    <h3>Uppgiftslista</h3>
-    <ul id="taskList"></ul> <!-- listan där allt kommer vara -->
-    
+    <!-- Knapp för att visa popup -->
+    <button id="toggleListBtn">Visa uppgiftslista</button>
+
+    <!-- Popup -->
+    <div id="popup" class="hidden">
+        <div class="popup-content">
+            <button type="button" id="closePopup">✖</button>
+            <h3>Uppgiftslista</h3>
+            <ul id="Epsteinlist"></ul>
+        </div>
+    </div>
 
     <script>
         const form = document.getElementById("taskForm");
-        const taskList = document.getElementById("taskList");
+        const EpsteinList = document.getElementById("Epsteinlist");
         const subjectInput = document.getElementById("subject");
         const dueDateInput = document.getElementById("dueDate");
-    
+
+        const popup = document.getElementById("popup");
+        const toggleListBtn = document.getElementById("toggleListBtn");
+        const closePopup = document.getElementById("closePopup");
+
+        toggleListBtn.addEventListener("click", () => {
+            popup.classList.remove("hidden");
+        });
+
+        closePopup.addEventListener("click", () => {
+            popup.classList.add("hidden");
+        });
+
         // Räkna ut prioritet baserat på datum
         function getPriority(dueDate) {
             const today = new Date();
             const due = new Date(dueDate);
-    
-            // Nollställ tid så det blir rätt
+
             today.setHours(0, 0, 0, 0);
             due.setHours(0, 0, 0, 0);
-    
+
             const diffTime = due - today;
             const diffDays = diffTime / (1000 * 60 * 60 * 24);
-    
+
             if (diffDays <= 2) {
-                return "high";   // röd
+                return "high";
             } else if (diffDays <= 7) {
-                return "medium"; // gul
+                return "medium";
             } else {
-                return "low";    // grön
+                return "low";
             }
         }
-    
-        // Ladda uppgifter
+
         function loadTasks() {
             const saved = localStorage.getItem("tasks");
             return saved ? JSON.parse(saved) : [];
         }
-    
-        // Spara uppgifter
+
         function saveTasks(tasks) {
             localStorage.setItem("tasks", JSON.stringify(tasks));
         }
-    
+
         let tasks = loadTasks();
-    
-        // Lägg till uppgift i listan
+
         function addTaskToList(task) {
             const li = document.createElement("li");
             li.classList.add(task.priority);
             li.textContent = `${task.subject} - Inlämning: ${task.date}`;
-    
+
             const removeBtn = document.createElement("button");
             removeBtn.textContent = "Ta bort";
             removeBtn.classList.add("remove-btn");
-    
+
             removeBtn.addEventListener("click", () => {
                 tasks = tasks.filter(t => t !== task);
                 saveTasks(tasks);
                 li.remove();
             });
-    
+
             li.appendChild(removeBtn);
-            taskList.appendChild(li);
+            EpsteinList.appendChild(li);
         }
-    
-        // Visa sparade uppgifter vid start
+
         tasks.forEach(task => {
             addTaskToList(task);
         });
-    
-        // När formuläret skickas
+
         form.addEventListener("submit", function(e) {
             e.preventDefault();
-    
+
             const priority = getPriority(dueDateInput.value);
-    
+
             const task = {
                 subject: subjectInput.value,
                 date: dueDateInput.value,
                 priority: priority
             };
-    
+
             tasks.push(task);
             saveTasks(tasks);
             addTaskToList(task);
             form.reset();
+
+            popup.classList.remove("hidden");
         });
     </script>
-    
-    
+
 </body>
 </html>
