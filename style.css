@@ -1,6 +1,4 @@
-/* =========================
-   BEFINTLIG CSS
-========================= */
+
 body {
     font-family: Arial, sans-serif;
     padding: 20px;
@@ -14,10 +12,36 @@ h2, h3 {
 }
 
 input, select, button {
-    padding: 8px;
+    padding: 15px;
     margin: 5px 0;
     border: 1px solid #ccc;
     border-radius: 4px;
+    /* width: 1000px; */
+    
+}
+
+#subject, #dueDate{
+    width: 1100px;
+    text-align: center;
+    font-size: 25px;
+}
+
+#start3Text, #toggleListBtn {
+    width: 1132px;
+    text-align: center;
+    font-size: 20px;
+}
+
+#start2Text, #startText {
+    width: 200px;
+    font-size: 50px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
+
+label {
+    padding: 8px;
 }
 
 button {
@@ -78,11 +102,9 @@ li {
 }
 
 
-/* =========================
-   POPUP CSS
-========================= */
 
-/* Popup bakgrund */
+
+/*Epstein listan*/
 #popup {
     position: fixed;
     inset: 0;
@@ -93,7 +115,7 @@ li {
     z-index: 1000;
 }
 
-/* Popup-rutan */
+/* Popup saker sådant */
 .popup-content {
     background-color: #f5f5f5;
     padding: 20px;
@@ -122,3 +144,5 @@ li {
 #closePopup:hover {
     color: #000;
 }
+
+
